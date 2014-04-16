@@ -220,6 +220,32 @@ describe('Adapter', function () {
       });
     });
 
+    it.only('should send only to the sockets mentionned in the "to" array if it is not empty (with rooms)', function (done) {
+      adapter.broadcast(data, { rooms: ['sport', 'geek'], to: ['jose', 'samuel'] }, clients, function (err) {
+        if (err) return done(err);
+        expect(clients.marc.write).to.not.be.called;
+        expect(clients.jose.write).to.be.calledOnce;
+        expect(clients.greg.write).to.not.be.called;
+        expect(clients.vincent.write).to.not.be.called;
+        expect(clients.ludowic.write).to.not.be.called;
+        expect(clients.samuel.write).to.be.calledOnce;
+        done();
+      });
+    });
+
+    it('should send only to the sockets mentionned in the "to" array if it is not empty (without rooms)', function (done) {
+      adapter.broadcast(data, { to: ['jose', 'samuel'] }, clients, function (err) {
+        if (err) return done(err);
+        expect(clients.marc.write).to.not.be.called;
+        expect(clients.jose.write).to.be.calledOnce;
+        expect(clients.greg.write).to.not.be.called;
+        expect(clients.vincent.write).to.not.be.called;
+        expect(clients.ludowic.write).to.not.be.called;
+        expect(clients.samuel.write).to.be.calledOnce;
+        done();
+      });
+    });
+
     it('should called a custom method', function (done) {
       adapter.broadcast(data, { method: 'send' }, clients, function (err) {
         if (err) return done(err);
@@ -236,7 +262,7 @@ describe('Adapter', function () {
     it('should publish data', function (done) {
       adapter.broadcast(data, { method: 'send', except: ['jose'] }, clients, function (err) {
         if (err) return done(err);
-        expect(publish).to.be.calledWith(data, 'room', { method: 'send', except: ['jose'], rooms: [] });
+        expect(publish).to.be.calledWith(data, 'room', { method: 'send', except: ['jose'], to: [], rooms: [] });
         done();
       });
     });
