@@ -4,7 +4,8 @@ var sinon = require('sinon');
 var expect = require('chai').use(require('sinon-chai')).expect;
 var Primus = require('primus');
 var PrimusEmitter = require('primus-emitter');
-var PrimusRooms = require('primus-rooms');
+// use our own primus room-rooms !
+var PrimusRooms = require('../../primus-rooms');
 var PrimusCluster = require('..');
 var redis = require('redis');
 

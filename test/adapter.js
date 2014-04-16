@@ -220,7 +220,7 @@ describe('Adapter', function () {
       });
     });
 
-    it.only('should send only to the sockets mentionned in the "to" array if it is not empty (with rooms)', function (done) {
+    it('should send only to the sockets mentionned in the "to" array if it is not empty (with rooms)', function (done) {
       adapter.broadcast(data, { rooms: ['sport', 'geek'], to: ['jose', 'samuel'] }, clients, function (err) {
         if (err) return done(err);
         expect(clients.marc.write).to.not.be.called;
@@ -260,9 +260,9 @@ describe('Adapter', function () {
     });
 
     it('should publish data', function (done) {
-      adapter.broadcast(data, { method: 'send', except: ['jose'] }, clients, function (err) {
+      adapter.broadcast(data, { method: 'send', except: ['jose'], to: ["samuel"] }, clients, function (err) {
         if (err) return done(err);
-        expect(publish).to.be.calledWith(data, 'room', { method: 'send', except: ['jose'], to: [], rooms: [] });
+        expect(publish).to.be.calledWith(data, 'room', { method: 'send', except: ['jose'], to: ["samuel"], rooms: [] });
         done();
       });
     });
