@@ -15,14 +15,14 @@
     "primus": "~2.0.2",
     "ws": "~0.4.31",
     "primus-emitter": "~3.0.0",
-    "primus-rooms": "https://github.com/rodincave/primus-rooms.git"
+    "primus-rooms": "git://github.com/rodincave/primus-rooms.git"
   },
   "peerDependencies": {
     "primus": ">=1.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/neoziro/primus-cluster.git"
+    "url": "git://github.com/neoziro/primus-cluster.git"
   },
   "scripts": {
     "test": "mocha --recursive"
